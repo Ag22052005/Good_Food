@@ -11,12 +11,12 @@ function Card({ food }) {
   const addToCart = (e) => {
     const token = localStorage.getItem("authToken");
     axios
-      .post("http://localhost:3000/getId", { token })
+      .post("https://good-food-rkxe.onrender.com/getId", { token })
       .then((res) => {
         const userId = res.data.decode.userId;
         console.log('userid ' ,userId)
         axios
-          .post("http://localhost:3000/addCart", {
+          .post("https://good-food-rkxe.onrender.com/addCart", {
             user: {
               userId:userId
             },

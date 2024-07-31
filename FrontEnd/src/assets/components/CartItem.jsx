@@ -7,14 +7,14 @@ function CartItem({cartItem}) {
   const {USER_ID} = useContext(UserInfo)
   const UpdateCart = (action)=>{
     if(action==='remove'){
-      axios.put('http://localhost:3000/updatemycart',{action,userId:USER_ID,foodId:cartItem.foodId}).then(
+      axios.put('https://good-food-rkxe.onrender.com/updatemycart',{action,userId:USER_ID,foodId:cartItem.foodId}).then(
         (res)=>console.log('updated')
       ).catch((err)=>console.log(err))
     }
     else{
       action === '+' ?cartItem.option.qty++:cartItem.option.qty--;
       // console.log(cartItem.option.qty)
-      axios.put('http://localhost:3000/updatemycart',{action,userId:USER_ID,foodId:cartItem.foodId,qty:cartItem.option.qty}).then(
+      axios.put('https://good-food-rkxe.onrender.com/updatemycart',{action,userId:USER_ID,foodId:cartItem.foodId,qty:cartItem.option.qty}).then(
         (res)=>console.log('updated')
       ).catch((err)=>console.log(err))
     }

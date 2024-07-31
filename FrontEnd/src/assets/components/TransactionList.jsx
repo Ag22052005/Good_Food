@@ -12,7 +12,7 @@ function TransactionList() {
   const [status, setStatus] = useState("Delivered");
   useEffect(() => {
     axios
-      .post("http://localhost:3000/transaction", { userId: USER_ID })
+      .post("https://good-food-rkxe.onrender.com/transaction", { userId: USER_ID })
       .then((res) => {
         // console.log(res)
         setTransactionList(res.data.transactionList);

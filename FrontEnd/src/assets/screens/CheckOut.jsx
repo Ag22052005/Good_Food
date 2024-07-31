@@ -39,7 +39,7 @@ function CheckOut() {
         [k]: v,
       };
       axios
-        .post("http://localhost:3000/updateUser", { userId: USER_ID, payload })
+        .post("https://good-food-rkxe.onrender.com/updateUser", { userId: USER_ID, payload })
         .then((res) => {
           console.log("updated ", res.data);
           textBox.value = res.data[k];
@@ -65,7 +65,7 @@ function CheckOut() {
   };
   const handlePayment = async () => {
     try {
-        const response = await axios.post('http://localhost:3000/order', {
+        const response = await axios.post('https://good-food-rkxe.onrender.com/order', {
             amount: totalPrice
         });
         const data = response.data;
@@ -94,7 +94,7 @@ const handlePaymentVerify = async (data) => {
             });
             
             try {
-                const res = await axios.post('http://localhost:3000/verify', {
+                const res = await axios.post('https://good-food-rkxe.onrender.com/verify', {
                   userId:USER_ID,
                   itemsName,
                   price:totalPrice,

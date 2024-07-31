@@ -11,7 +11,7 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/login',{email:email.current.value,password:password.current.value})
+    axios.post('https://good-food-rkxe.onrender.com/login',{email:email.current.value,password:password.current.value})
     .then((res)=>{
       console.log(res)
       email.current.value = ''

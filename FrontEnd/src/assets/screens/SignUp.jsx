@@ -13,7 +13,7 @@ function SignUp() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/signup',{name:name.current.value,email:email.current.value,password:password.current.value,location:location.current.value}).then((res)=>{
+    axios.post('https://good-food-rkxe.onrender.com/signup',{name:name.current.value,email:email.current.value,password:password.current.value,location:location.current.value}).then((res)=>{
       name.current.value = ''
       email.current.value = ''
       password.current.value = ''

@@ -12,12 +12,12 @@ function CartList() {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     axios
-      .post("http://localhost:3000/getId", { token })
+      .post("https://good-food-rkxe.onrender.com/getId", { token })
       .then((res) => {
         userId = res.data.decode.userId;
         // console.log("userid ", userId);
         axios
-          .post("http://localhost:3000/mycart", {
+          .post("https://good-food-rkxe.onrender.com/mycart", {
             userId: userId,
           })
           .then((res) => {
