@@ -3,6 +3,9 @@ body::-webkit-scrollbar {
 }
 .sbox{
   position: relative;
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
 }
 .shead{
   position: absolute;
@@ -30,4 +33,24 @@ body::-webkit-scrollbar {
 }
 .cardImage{
   height: 12rem;
+}
+
+@media (max-width: 576px) {
+  .sbox {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .sbox {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .shead {
+    font-size: 1.25rem;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+  }
 }

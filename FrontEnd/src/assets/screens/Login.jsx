@@ -1,31 +1,36 @@
 import React, { useRef } from "react";
-import {useNavigate } from "react-router-dom";
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 function Login() {
   const email = useRef("");
   const password = useRef("");
-
   const navigate = useNavigate();
+
   const handleRedirect = () => {
     navigate("/signup");
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://good-food-rkxe.onrender.com/login',{email:email.current.value,password:password.current.value})
-    .then((res)=>{
-      console.log(res)
-      email.current.value = ''
-      password.current.value = ''
-      localStorage.setItem("authToken",res.data.authToken)
-      // console.log(localStorage.getItem('authToken'))
-      navigate('/')
-    }).catch((err)=>{
-      alert(err)
+    axios.post('https://good-food-rkxe.onrender.com/login', {
+      email: email.current.value,
+      password: password.current.value
     })
-    
+    .then((res) => {
+      console.log(res);
+      email.current.value = '';
+      password.current.value = '';
+      localStorage.setItem("authToken", res.data.authToken);
+      navigate('/');
+    })
+    .catch((err) => {
+      alert(err);
+    });
   };
+
   return (
-    <div className="container w-25 mt-5 border border-secondary p-5 rounded sbox">
+    <div className="container mt-5 border border-secondary p-5 rounded sbox">
       <div className="shead">Login</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -52,20 +57,19 @@ function Login() {
           />
         </div>
         <div className="lbtn text-center">
-        <button type="submit" className="btn btn-primary w-100" >
-          Sign In
-        </button>
-      </div>
-      </form>
-      <div className="isuser text-center mt-2 mb-1 w-100">
-        <h6>Not an user ?</h6>
-      </div>
-      <div className="sbtn text-center">
-          <button  className="btn btn-primary w-100" onClick={handleRedirect}>
-            Sign Up
+          <button type="submit" className="btn btn-primary w-100">
+            Sign In
           </button>
         </div>
-
+      </form>
+      <div className="isuser text-center mt-2 mb-1 w-100">
+        <h6>Not a user?</h6>
+      </div>
+      <div className="sbtn text-center">
+        <button className="btn btn-primary w-100" onClick={handleRedirect}>
+          Sign Up
+        </button>
+      </div>
     </div>
   );
 }

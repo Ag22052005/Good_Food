@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
-import {useNavigate } from "react-router-dom";
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 function SignUp() {
   const name = useRef("");
   const email = useRef("");
@@ -8,31 +9,40 @@ function SignUp() {
   const location = useRef("");
 
   const navigate = useNavigate();
+
   const handleRedirect = () => {
     navigate("/login");
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://good-food-rkxe.onrender.com/signup',{name:name.current.value,email:email.current.value,password:password.current.value,location:location.current.value}).then((res)=>{
-      name.current.value = ''
-      email.current.value = ''
-      password.current.value = ''
-      location.current.value = ''
-      navigate('/login')
-    }).catch((err)=>{
-      console.log(err)
-      alert('Internal server Error')
+    axios.post('https://good-food-rkxe.onrender.com/signup', {
+      name: name.current.value,
+      email: email.current.value,
+      password: password.current.value,
+      location: location.current.value
     })
-    
+    .then((res) => {
+      name.current.value = '';
+      email.current.value = '';
+      password.current.value = '';
+      location.current.value = '';
+      navigate('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Internal server Error');
+    });
   };
+
   return (
-    <div className="container w-25 mt-5 border border-secondary p-5 sbox rounded">
-      <div className="shead" style={{"top":"-3%"}}>
+    <div className="container mt-5 border border-secondary p-5 sbox rounded">
+      <div className="shead">
         Register
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Name </label>
+          <label className="form-label">Name</label>
           <input type="text" className="form-control" ref={name} />
         </div>
         <div className="mb-3">
@@ -64,7 +74,7 @@ function SignUp() {
         </div>
         <div className="sbtn text-center">
           <button type="submit" className="btn btn-primary w-100">
-            SignUp
+            Sign Up
           </button>
         </div>
       </form>
@@ -73,7 +83,7 @@ function SignUp() {
       </div>
       <div className="lbtn text-center">
         <button className="btn btn-primary w-100" onClick={handleRedirect}>
-          SignIn
+          Sign In
         </button>
       </div>
     </div>

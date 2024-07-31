@@ -23,7 +23,7 @@ function CartItem({cartItem}) {
   return (
     <li
       className="d-flex border justify-content-between"
-      style={{ height: "11rem", width: "90%" }}
+      style={{ minHeight: "11rem", width: "90%" }}
     >
       <div className="w-75 m-0 px-4 pt-2">
         <h5 className="m-1">{cartItem.name}</h5>
@@ -49,7 +49,7 @@ function CartItem({cartItem}) {
         style={{'flexDirection':'column'}}
       >
         <img
-        src={cartItem.img}  alt="This is an image"
+        src={cartItem.img}  alt="This is an image" className="img-fluid"
           style={{ 'maxHeight': "6rem", 'borderRadius': "5px", 'objectFit':'contain' }}
         />
         <button className="bg-danger rounded border text-white mb-2" onClick = {()=>UpdateCart('remove')}>Remove</button>
