@@ -10,7 +10,7 @@ const UserInfoProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if(token){
-      axios.post("http://localhost:3000/getId", { token }).then((res) => {
+      axios.post("https://good-food-rkxe.onrender.com/getId", { token }).then((res) => {
         setUserId(res.data.decode.userId)
       });
     }
