@@ -1,0 +1,33 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+.sbox{
+  position: relative;
+}
+.shead{
+  position: absolute;
+  top: -4%;
+  left:28%;
+  border: 2px solid black;
+  width: 40%;
+  text-align:center;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 0.3rem;
+  font-size: larger;
+  font-weight: bold;
+}
+.lbtn,.sbtn{
+  cursor: pointer;
+}
+
+.searchItem{
+  position: absolute;
+  top: 80%;
+  left: 28%;
+  z-index: 1;
+  width: 40%;
+}
+.cardImage{
+  height: 12rem;
+}
