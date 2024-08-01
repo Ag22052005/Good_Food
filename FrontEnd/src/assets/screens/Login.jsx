@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+
 function Login() {
   const email = useRef("");
   const password = useRef("");
@@ -13,7 +14,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://good-food-rkxe.onrender.com/login', {
+    axios.post(`${import.meta.env.VITE_HOST_URL}/login`, {
       email: email.current.value,
       password: password.current.value
     })

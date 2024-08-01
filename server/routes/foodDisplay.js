@@ -28,11 +28,12 @@ router.get('/foodDisplay/category', async (req,res)=>{
 })
 
 
-router.post('/getId',async (req,res)=>{
+router.get('/getId',async (req,res)=>{
   try{
-    const token = req.body.token
-    // console.log(token)
+    const token = req.headers.authorization.split(' ')[1]
+    console.log(token)
     const decode = await jwt.verify(token,process.env.JWT_KEY)
+    console.log(decode)
     res.json({decode})
 
   }catch(err){

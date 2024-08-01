@@ -9,7 +9,7 @@ function CardList() {
 
   useEffect(() => {
     axios
-      .get("https://good-food-rkxe.onrender.com/foodDisplay")
+      .get(`${import.meta.env.VITE_HOST_URL}/foodDisplay`)
       .then((res) => {
 
         setFoodItems(res.data.foodItems);
@@ -17,7 +17,7 @@ function CardList() {
       .catch((err) => console.log(err));
 
     axios
-      .get("https://good-food-rkxe.onrender.com/foodDisplay/category")
+      .get(`${import.meta.env.VITE_HOST_URL}/foodDisplay/category`)
       .then((res) => {
         setFoodCategory(res.data.foodCategory);
       })

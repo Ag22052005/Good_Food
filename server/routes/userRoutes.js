@@ -8,11 +8,11 @@ const { default: mongoose } = require("mongoose");
 const Cart = require("../models/cart");
 const Transaction = require("../models/Transaction");
 const { ObjectId } = mongoose.Types;
+const {jwtmiddleware} = require('./../jwt')
 
-
-router.post('/getCartPrice',async(req,res)=>{
+router.get('/getCartPrice',jwtmiddleware,async(req,res)=>{
   try {
-    const uid = req.body.userId;
+    const uid = req.user.userId;
     const userId = new ObjectId(uid)
     const mycart = await mongoose.connection.collection('carts').findOne({userId})
     res.status(200).json(mycart)
@@ -23,9 +23,21 @@ router.post('/getCartPrice',async(req,res)=>{
   }
 })
 
-router.post('/updateUser',async(req,res)=>{
+router.get('/getUserInfo',jwtmiddleware,async (req,res)=>{
   try {
-    const uid = req.body.userId;
+    const uid = req.user.userId;
+    const userId = new ObjectId(uid)
+    const user = await mongoose.connection.collection('users').findOne({_id:userId})
+    // console.log(user)
+    res.status(200).json(user)
+  } catch (error) {
+    console.log(error)
+    res.status(504).json(error)
+  }
+})
+router.post('/updateUser',jwtmiddleware,async(req,res)=>{
+  try {
+    const uid = req.user.userId;
     const userId = new ObjectId(uid)
     const payload = req.body.payload
     console.log(payload)
@@ -41,24 +53,12 @@ router.post('/updateUser',async(req,res)=>{
 })
 
 
-router.post('/getUserInfo',async (req,res)=>{
-  try {
-    const uid = req.body.userId
-    const userId = new ObjectId(uid)
-    const user = await mongoose.connection.collection('users').findOne({_id:userId})
-    // console.log(user)
-    res.status(200).json(user)
-  } catch (error) {
-    console.log(error)
-    res.status(504).json(error)
-  }
-})
 
-router.post('/transaction',async(req,res)=>{
+router.get('/transaction',jwtmiddleware,async(req,res)=>{
   try {
-    const user = req.body
+    const uid = req.user.userId
     // console.log(user.userId)
-    const userId = new ObjectId(user.userId)
+    const userId = new ObjectId(uid)
     const myTransaction = await Transaction.findOne({userId})
     res.status(200).json(myTransaction)
 
@@ -69,50 +69,49 @@ router.post('/transaction',async(req,res)=>{
   }
 })
 
-router.post('/payment',async (req,res)=>{
+// router.post('/payment',async (req,res)=>{
+//   try {
+//     const transactionDetails = req.body
+//     const userId = new ObjectId(transactionDetails.userId)
+//     const myTransaction = await Transaction.findOne({userId})
+//     // console.log(myTransaction)
+//     myTransaction.transactionList.push({
+//       price:transactionDetails.price,
+//       itemsName:transactionDetails.itemsName
+//     });
+//     const response = await myTransaction.save()
+//     // console.log("res: ",response)
+
+//     res.status(200).json({'msg':'Order Placed'})
+
+//     setTimeout(async()=>{
+//       let len = response.transactionList.length
+//       response.transactionList[len-1].status = 'Delivered'
+//       const newR = await response.save()
+//       console.log("Finally After 10sec")
+//       // console.log(newR)
+//     },60000)
+
+
+//     const mycart = await Cart.findOne({userId})
+//     mycart.items=[]
+//     const cartres = await mycart.save();
+//     console.log('Cart Empty !!')
+
+//   } catch (error) {
+//     console.log(error)
+//     res.status(504).json(error)
+//   }
+
+// })
+
+
+
+router.post("/addCart", jwtmiddleware,async (req, res) => {
   try {
-    const transactionDetails = req.body
-    const userId = new ObjectId(transactionDetails.userId)
-    const myTransaction = await Transaction.findOne({userId})
-    // console.log(myTransaction)
-    myTransaction.transactionList.push({
-      price:transactionDetails.price,
-      itemsName:transactionDetails.itemsName
-    });
-    const response = await myTransaction.save()
-    // console.log("res: ",response)
-
-    res.status(200).json({'msg':'Order Placed'})
-
-    setTimeout(async()=>{
-      let len = response.transactionList.length
-      response.transactionList[len-1].status = 'Delivered'
-      const newR = await response.save()
-      console.log("Finally After 10sec")
-      // console.log(newR)
-    },60000)
-
-
-    const mycart = await Cart.findOne({userId})
-    mycart.items=[]
-    const cartres = await mycart.save();
-    console.log('Cart Empty !!')
-
-  } catch (error) {
-    console.log(error)
-    res.status(504).json(error)
-  }
-
-})
-
-
-
-
-router.post("/addCart", async (req, res) => {
-  try {
-    const user = req.body.user;
+    const userId = req.user.userId;
     const food = req.body.food;
-    let isthere = await Cart.findOne({ userId: user.userId });
+    let isthere = await Cart.findOne({ userId:userId });
     const foodIdObject = new ObjectId(food.foodId);
     const foodDetails = await mongoose.connection.db
       .collection("food_items")
@@ -149,9 +148,9 @@ router.post("/addCart", async (req, res) => {
 });
 
 
-router.post("/mycart", async (req, res) => {
+router.get("/mycart",jwtmiddleware, async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.user.userId;
     const myCart = await Cart.findOne({ userId: userId });
     res.status(200).json(myCart);
   } catch (err) {
@@ -223,9 +222,10 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.put("/updatemycart", async (req, res) => {
+router.put("/updatemycart",jwtmiddleware, async (req, res) => {
   try {
-    const { action, userId, foodId, qty } = req.body;
+    const userId = req.user.userId
+    const { action,foodId, qty } = req.body;
     let MYCART = await Cart.findOne({ userId });
     if (action === "remove") {
       MYCART.items = MYCART.items.filter((x) => {

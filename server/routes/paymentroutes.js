@@ -6,7 +6,8 @@ const { default: mongoose } = require("mongoose");
 const { ObjectId } = mongoose.Types;
 require("dotenv").config();
 const Transaction = require('./../models/Transaction')
-const Cart = require('./../models/cart')
+const Cart = require('./../models/cart');
+const { jwtmiddleware } = require("../jwt");
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_SECRET,

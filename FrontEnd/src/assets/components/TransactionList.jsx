@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { UserInfo } from "../../store/store";
 import axios from "axios";
 import Transaction from "./Transaction.jsx";
 
 
 function TransactionList() {
-  const { USER_ID } = useContext(UserInfo);
+
   const [transactionList, setTransactionList] = useState([]);
   const [list, setList] = useState([]);
   const [status, setStatus] = useState("Delivered");
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
     axios
-      .post("https://good-food-rkxe.onrender.com/transaction", { userId: USER_ID })
+      .get(`${import.meta.env.VITE_HOST_URL}/transaction`,{
+        headers: {
+          authorization: `bearer ${token}`,
+        },
+      })
       .then((res) => {
         // console.log(res)
         setTransactionList(res.data.transactionList);
       })
       .catch((err) => console.log(err));
-  }, [USER_ID]);
+  }, []);
 
   useEffect(() => {
     const l = transactionList.filter(t => t.status === status);

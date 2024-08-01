@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-
 function Card({ food }) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState(Object.keys(food.options[0])[0]);
@@ -11,34 +10,28 @@ function Card({ food }) {
   const addToCart = (e) => {
     const token = localStorage.getItem("authToken");
     axios
-      .post("https://good-food-rkxe.onrender.com/getId", { token })
+      .post(
+        `${import.meta.env.VITE_HOST_URL}/addCart`,
+        {
+          food: {
+            foodId: foodId,
+            option: {
+              qty: qty,
+              size: size,
+              price: parseInt(food.options[0][size]),
+            },
+          },
+        },{
+          headers: {
+            authorization: `bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
-        const userId = res.data.decode.userId;
-        console.log('userid ' ,userId)
-        axios
-          .post("https://good-food-rkxe.onrender.com/addCart", {
-            user: {
-              userId:userId
-            },
-            food: {
-              foodId: foodId,
-              option: {
-                qty: qty,
-                size: size,
-                price: parseInt(food.options[0][size])
-              },
-            },
-          })
-          .then((res) => {
-            console.log(res.data.items)
-            setQty(1) 
-            setSize(Object.keys(food.options[0])[0])
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err);
-            alert(err);
-          });
+        console.log(res.data.items);
+        setQty(1);
+        setSize(Object.keys(food.options[0])[0]);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -70,10 +63,14 @@ function Card({ food }) {
               >
                 {Array.from(Array(6), (e, i) => {
                   return (
-                    <option key={i + 1} value={i + 1} onClick={()=>{
-                      setQty(i+1)
-                      document.getElementById('qty').value = qty
-                    }}>
+                    <option
+                      key={i + 1}
+                      value={i + 1}
+                      onClick={() => {
+                        setQty(i + 1);
+                        document.getElementById("qty").value = qty;
+                      }}
+                    >
                       {i + 1}
                     </option>
                   );
@@ -88,10 +85,14 @@ function Card({ food }) {
               >
                 {food.options.map((optionObj) => {
                   return Object.keys(optionObj).map((option) => (
-                    <option key={option} value={option} onClick={()=>{
-                      setSize(option)
-                      document.getElementById('size').value = size}
-                      }>
+                    <option
+                      key={option}
+                      value={option}
+                      onClick={() => {
+                        setSize(option);
+                        document.getElementById("size").value = size;
+                      }}
+                    >
                       {option.toUpperCase()}
                     </option>
                   ));

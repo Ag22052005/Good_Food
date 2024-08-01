@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserInfo } from "../../store/store";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function CheckOut() {
-  const navigate = useNavigate()
+  const token = localStorage.getItem("authToken");
+  const navigate = useNavigate();
   const [offer, setOffer] = useState(0);
   const [billItems, setBillItems] = useState({
     price: 200,
@@ -14,7 +16,7 @@ function CheckOut() {
   const [totalPrice, setTotalPrice] = useState(
     billItems.deliveryCharge + billItems.price * (1 + billItems.tax / 100)
   );
-  const [cartItems,setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([]);
 
   const { USER_ID } = useContext(UserInfo);
 
@@ -39,7 +41,15 @@ function CheckOut() {
         [k]: v,
       };
       axios
-        .post("https://good-food-rkxe.onrender.com/updateUser", { userId: USER_ID, payload })
+        .post(
+          `${import.meta.env.VITE_HOST_URL}/updateuser`,
+          { payload },
+          {
+            headers: {
+              authorization: `bearer ${token}`,
+            },
+          }
+        )
         .then((res) => {
           console.log("updated ", res.data);
           textBox.value = res.data[k];
@@ -65,67 +75,67 @@ function CheckOut() {
   };
   const handlePayment = async () => {
     try {
-        const response = await axios.post('https://good-food-rkxe.onrender.com/order', {
-            amount: totalPrice
-        });
-        const data = response.data;
-        console.log(data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_HOST_URL}/order`,
+        {
+          amount:Math.round(totalPrice),
+        }
+      );
+      const data = response.data;
+      console.log(data);
 
-        // Call the handlePaymentVerify function with the data
-        handlePaymentVerify(data.data);
+      // Call the handlePaymentVerify function with the data
+      handlePaymentVerify(data.data);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
-// handlePaymentVerify Function
-const handlePaymentVerify = async (data) => {
+  // handlePaymentVerify Function
+  const handlePaymentVerify = async (data) => {
     const options = {
-        key: 'rzp_test_lkVYkbv1AqmyMF',
-        amount: data.amount,
-        currency: data.currency,
-        name: "Ashish",
-        description: "Test Mode",
-        order_id: data.id,
-        handler: async (response) => {
-            console.log("response", response);
-            const itemsName = cartItems.map((item) => {
-              return item.name;
+      key: "rzp_test_lkVYkbv1AqmyMF",
+      amount: data.amount,
+      currency: data.currency,
+      name: "Ashish",
+      description: "Test Mode",
+      order_id: data.id,
+      handler: async (response) => {
+        console.log("response", response);
+        const itemsName = cartItems.map((item) => {
+          return item.name;
+        });
+
+        try {
+          const res = await axios
+            .post(`${import.meta.env.VITE_HOST_URL}/verify`, {
+              userId: USER_ID,
+              itemsName,
+              price: totalPrice,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            })
+            .then((res) => {
+              console.log(res);
+              navigate("/transaction");
             });
-            
-            try {
-                const res = await axios.post('https://good-food-rkxe.onrender.com/verify', {
-                  userId:USER_ID,
-                  itemsName,
-                  price:totalPrice,
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_signature: response.razorpay_signature,
-                }).then((res)=>{
-                  console.log(res)
-                  navigate('/')
-                })
-            } catch (error) {
-                console.log(error);
-            }
-        },
+        } catch (error) {
+          console.log(error);
+        }
+      },
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
-};
-
-
-
-
-
-
-
-
-
+  };
 
   useEffect(() => {
     axios
-      .post("http://localhost:3000/getUserInfo", { userId: USER_ID })
+      .get(`${import.meta.env.VITE_HOST_URL}/getUserInfo`, {
+        headers: {
+          authorization: `bearer ${token}`,
+        },
+      })
       .then((res) => {
         userInfoHandler(res.data);
       })
@@ -134,10 +144,14 @@ const handlePaymentVerify = async (data) => {
       });
 
     axios
-      .post("http://localhost:3000/getCartPrice", { userId: USER_ID })
+      .get(`${import.meta.env.VITE_HOST_URL}/getCartPrice`, {
+        headers: {
+          authorization: `bearer ${token}`,
+        },
+      })
       .then((res) => {
         const items = res.data.items;
-        setCartItems(items)
+        setCartItems(items);
         const price = items.reduce((initial, item) => {
           return initial + item.option.qty * item.option.price;
         }, 0);
@@ -230,7 +244,9 @@ const handlePaymentVerify = async (data) => {
       </div>
       <center className="w-100 bg-dark" style={{ height: "1px" }}></center>
       <div className="w-100">
-        <center className="fw-bold" style={{'fontSize':'1.4rem'}}>Bill</center>
+        <center className="fw-bold" style={{ fontSize: "1.4rem" }}>
+          Bill
+        </center>
         <div className=" border">
           <div className="w-100 p-4 d-flex justify-content-between">
             <div className="w-100">
@@ -252,10 +268,13 @@ const handlePaymentVerify = async (data) => {
               })}
             </div>
           </div>
-          <center className="bg-dark m-auto" style={{ height: "1px",width:'90%' }}></center>
+          <center
+            className="bg-dark m-auto"
+            style={{ height: "1px", width: "90%" }}
+          ></center>
           <div className="w-100 d-flex p-4">
-            <h5 className="fw-bolder w-50" style={{'fontSize':'1.5rem'}}>
-              Total Price : 
+            <h5 className="fw-bolder w-50" style={{ fontSize: "1.5rem" }}>
+              Total Price :
             </h5>
             <h5 className="w-50" style={{ textAlign: "end" }}>
               ₹ {totalPrice}
@@ -264,17 +283,17 @@ const handlePaymentVerify = async (data) => {
         </div>
       </div>
       <div
-            className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0"
-            style={{ position: "sticky", bottom: "0px", height: "4rem" }}
-          >
-            <button
-              className="border bg-primary h-100 text-white"
-              style={{ float: "right" }}
-              onClick={handlePayment}
-            >
-              Proceed To Pay {">"}
-            </button>
-          </div>
+        className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0"
+        style={{ position: "sticky", bottom: "0px", height: "4rem" }}
+      >
+        <button
+          className="border bg-primary h-100 text-white"
+          style={{ float: "right" }}
+          onClick={handlePayment}
+        >
+          Proceed To Pay {">"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -2,39 +2,29 @@ import React from "react";
 import CartItem from "./CartItem.jsx";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function CartList() {
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate()
-  let userId = null
+  const navigate = useNavigate();
+  let userId = null;
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     axios
-      .post("https://good-food-rkxe.onrender.com/getId", { token })
+      .get(`${import.meta.env.VITE_HOST_URL}/mycart`, {
+        headers: {
+          authorization:`bearer ${token}`,
+        }
+      })
       .then((res) => {
-        userId = res.data.decode.userId;
-        // console.log("userid ", userId);
-        axios
-          .post("https://good-food-rkxe.onrender.com/mycart", {
-            userId: userId,
-          })
-          .then((res) => {
-            setCartItems(res.data.items);
-            // console.log(res.data.items);
-          })
-          .catch((err) => {
-            console.log(err);
-            alert(err);
-          });
+        setCartItems(res.data.items);
+        // console.log(res.data.items);
       })
       .catch((err) => {
         console.log(err);
         alert(err);
       });
   }, [cartItems]);
-
 
   return (
     <div>
@@ -56,7 +46,7 @@ function CartList() {
             <button
               className="border bg-primary h-100 text-white"
               style={{ float: "right" }}
-              onClick={()=> navigate('/checkout')}
+              onClick={() => navigate("/checkout")}
             >
               Place Order {">"}
             </button>
