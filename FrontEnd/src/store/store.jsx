@@ -8,9 +8,9 @@ export const UserInfo = createContext({
 const UserInfoProvider = ({ children }) => {
   const [userId, setUserId] = useState("");
   useEffect(() => {
-    const token = localStorage.getItem("authToken").toString();
+    const token = localStorage.getItem("authToken");
+    console.log("Token Fetched ",token)
     if (token) {
-      // console.log(token)
       axios
         .get(`${import.meta.env.VITE_HOST_URL}/getId`, {
           headers: {
