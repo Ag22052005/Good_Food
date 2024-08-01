@@ -3,7 +3,6 @@ import { UserInfo } from "../../store/store.jsx";
 import axios from "axios";
 
 function CartItem({ cartItem }) {
-  const { USER_ID } = useContext(UserInfo);
   const UpdateCart = (action) => {
     const token = localStorage.getItem("authToken");
     if (action === "remove") {
@@ -49,22 +48,21 @@ function CartItem({ cartItem }) {
       className="d-flex border justify-content-between"
       style={{ minHeight: "11rem", width: "90%" }}
     >
-      <div className="w-75 m-0 px-4 pt-2">
-        <h5 className="m-1">{cartItem.name}</h5>
-        <p className="m-1 " style={{ overflow: "hidden" }}>
+      <div className="m-0 w-75 px-1 pt-2 Cart-item-box">
+        <h5 className="m-1 cart-item-heading">{cartItem.name}</h5>
+        <p className="m-1 cart-item-description" style={{ overflow: "hidden" }}>
           {cartItem.description}
         </p>
         <p className="m-1">*****</p>
-        <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-between Cart-item-price-box">
           <div
-            className="mt-2 border d-flex justify-content-center align-items-center"
-            style={{ width: "25%" }}
+            className="mt-2 border d-flex justify-content-center align-items-center Cart-item-qty-box"
           >
-            <button className="btn fw-bold" onClick={() => UpdateCart("-")}>
+            <button className="btn fw-bold Cart-qty-btn" onClick={() => UpdateCart("-")}>
               -
             </button>
-            <button className="btn">{cartItem.option.qty}</button>
-            <button className="btn" onClick={() => UpdateCart("+")}>
+            <button className="btn Cart-qty-btn">{cartItem.option.qty}</button>
+            <button className="btn Cart-qty-btn" onClick={() => UpdateCart("+")}>
               +
             </button>
           </div>
@@ -75,13 +73,13 @@ function CartItem({ cartItem }) {
         </div>
       </div>
       <div
-        className="m-0 d-flex justify-content-between align-items-center h-100 w-25 flex-wrap py-2"
+        className="m-0 d-flex justify-content-between align-items-center h-100 w-25 flex-wrap py-2 Cart-item-imgbtn-box"
         style={{ flexDirection: "column" }}
       >
         <img
           src={cartItem.img}
           alt="This is an image"
-          className="img-fluid"
+          className="img-fluid Cart-item-img"
           style={{
             maxHeight: "6rem",
             borderRadius: "5px",
@@ -89,7 +87,7 @@ function CartItem({ cartItem }) {
           }}
         />
         <button
-          className="bg-danger rounded border text-white mb-2"
+          className="bg-danger rounded border text-white mb-2 Cart-item-btn"
           onClick={() => UpdateCart("remove")}
         >
           Remove

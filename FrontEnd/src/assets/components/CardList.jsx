@@ -102,14 +102,14 @@ function CardList() {
       </div>
     </div>
     </div>
-    <div className="container" style={{ minWidth: "98vw" }}>
+    <div className="container d-flex justify-content-center flex-column" style={{ minWidth: "98vw" }}>
       {foodCategory.map((category) => {
         return (
           <div key={category._id}>
             <h4 className="m-4" style={{ borderTop: "2px solid black" }}>
               {category.CategoryName}
             </h4>
-            <div className="d-flex flex-wrap">
+            <div className="d-flex flex-wrap CardList-cardsContainer">
               {foodItems.map((food) => {
                 return (
                   food.CategoryName === category.CategoryName && food.name.toLowerCase().includes(serach) &&(

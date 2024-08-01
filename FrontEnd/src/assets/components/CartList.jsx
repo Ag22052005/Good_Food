@@ -32,7 +32,7 @@ function CartList() {
         <center>NO items</center>
       ) : (
         <>
-          <div className="container border w-50 border-top-0">
+          <div className="container border w-50 border-top-0 Cart-item-container">
             <ul className="cartItems w-100 m-4 p-0">
               {cartItems.map((cartItem) => (
                 <CartItem cartItem={cartItem} key={cartItem._id}></CartItem>
@@ -40,11 +40,10 @@ function CartList() {
             </ul>
           </div>
           <div
-            className="container border w-50 d-flex align-items-center bg-white flex-row-reverse p-0"
-            style={{ position: "sticky", bottom: "0px", height: "4rem" }}
+            className="container border d-flex align-items-center bg-white flex-row-reverse p-0 place-order-btn"
           >
             <button
-              className="border bg-primary h-100 text-white"
+              className="border bg-primary h-100 text-white "
               style={{ float: "right" }}
               onClick={() => navigate("/checkout")}
             >

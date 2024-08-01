@@ -44,10 +44,9 @@ function Card({ food }) {
   }, [qty, size]);
 
   return (
-    <div style={{ maxHeight: "30rem" }}>
+    <div className="Card-box">
       <div
-        className="card m-2"
-        style={{ width: "17rem", maxWidth: "20rem", maxHeight: "28rem" }}
+        className="card m-2 Card"
       >
         <img src={food.img} className="card-img-top cardImage" alt="..." />
         <div className="card-body">
@@ -63,7 +62,7 @@ function Card({ food }) {
               >
                 {Array.from(Array(6), (e, i) => {
                   return (
-                    <option
+                    <option className="Card-option-qty"
                       key={i + 1}
                       value={i + 1}
                       onClick={() => {

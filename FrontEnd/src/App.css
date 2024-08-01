@@ -35,6 +35,12 @@ body::-webkit-scrollbar {
   height: 12rem;
 }
 
+
+
+
+
+
+
 @media (max-width: 576px) {
   .sbox {
     padding: 0.5rem;
@@ -53,4 +59,72 @@ body::-webkit-scrollbar {
   .btn {
     font-size: 0.875rem;
   }
+}
+
+
+/* HOME_CARD */
+
+.Card-box{
+  max-height: 30rem;
+  margin-left:0.5rem;
+}
+.Card{
+  width: 17rem;
+  max-width: 20rem;
+  max-height:28rem;
+}
+
+.place-order-btn{
+  width: 50%;
+  position: sticky;
+  bottom: 0px;
+  height: 4rem; 
+}
+.Cart-item-qty-box{
+  width: 25%;
+}
+
+@media (max-width:630px) {
+  .Card{
+    width:100%;
+  }
+  .CardList-cardsContainer{
+    display: flex;
+    justify-content: center;
+  }
+  /* .Card-option-qty{
+    width: 1.5rem;
+  }   */
+  .Cart-item-container{
+    min-width: 100%;
+  }
+  .cart-item-heading{
+    font-size: 1.2rem;
+  }
+  .cart-item-description{
+    font-size: 1rem;
+    max-height :3rem ;
+  }
+  .Cart-item-img {
+    width: 80%;
+    margin: 3px;
+  }
+  .Cart-item-price-box{
+    width: 140%;
+    height: 50px;
+  }
+  .place-order-btn{
+    width: 100%;
+    height: 2.5rem;
+  }
+  .Cart-qty-btn{
+    padding: 0px 6px;
+    width: 33%;
+  }
+  .Cart-item-qty-box{
+    height: 2.5rem;
+  }
+  /* .Cart-item-imgbtn-box{
+    width: 30%;
+  } */
 }
