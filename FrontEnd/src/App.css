@@ -258,3 +258,31 @@ body::-webkit-scrollbar {
 .Checkout-userchange-lable{
   width: 16%;
 }
+
+
+.ChatBot-Screen{
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+}
+
+.chatBot-btn{
+  position: fixed;
+  right: 35px;
+  z-index: 1;
+  bottom: 29px;
+  height: 60px;
+  width: 60px;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 50%;
+}
+
+.chatBot-img{
+  height: 60px;
+  width: 60px;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 50%;
+}

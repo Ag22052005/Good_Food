@@ -12,6 +12,7 @@ import CartList from "./assets/components/CartList.jsx";
 import Header from "./assets/components/Header.jsx";
 import TransactionList from "./assets/components/TransactionList.jsx";
 import CheckOut from "./assets/screens/CheckOut.jsx";
+import ChatBotScreen from "./assets/screens/ChatBotScreen.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/chatbot",
+    element: (
+      <>
+        <ChatBotScreen />
+      </>
+    ),
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

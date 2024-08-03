@@ -35,7 +35,7 @@ function Card({ food }) {
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
+        alert("Add to cart error !! ", err);
       });
   };
 
