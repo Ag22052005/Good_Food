@@ -42,7 +42,7 @@ function CheckOut() {
       };
       axios
         .post(
-          `${import.meta.env.VITE_HOST_URL}/updateuser`,
+          `${import.meta.env.VITE_HOST_URL}/updateUser`,
           { payload },
           {
             headers: {
@@ -52,7 +52,6 @@ function CheckOut() {
         )
         .then((res) => {
           console.log("updated ", res.data);
-          textBox.value = res.data[k];
           textBox.readOnly = true;
           target.textContent = "Change";
         })
@@ -78,7 +77,7 @@ function CheckOut() {
       const response = await axios.post(
         `${import.meta.env.VITE_HOST_URL}/order`,
         {
-          amount:Math.round(totalPrice),
+          amount: Math.round(totalPrice),
         }
       );
       const data = response.data;
@@ -172,21 +171,20 @@ function CheckOut() {
   }, [billItems]);
 
   return (
-    <div className="container w-50 border">
-      <div className="w-75">
+    <div className="container border Checkout-userchange-cont">
+      <div className="Checkout-userchange-box">
         <div className="d-flex w-100 justify-content-between m-2">
-          <label className="form-label w-25">Name </label>
+          <label className="form-label Checkout-userchange-lable">Name </label>
           <input type="text" className="form-control w-50" id="name" readOnly />
           <button
-            className="btn border fw-bolder"
-            style={{ width: "14%" }}
+            className="btn border fw-bolder Checkout-userchange-btn"
             onClick={(e) => userInfoChangeHandler(e)}
           >
             Change
           </button>
         </div>
         <div className=" d-flex w-100 justify-content-between m-2">
-          <label htmlFor="exampleInputPassword1" className="form-label w-25">
+          <label htmlFor="exampleInputPassword1" className="form-label Checkout-userchange-lable ">
             Mobile
           </label>
           <input
@@ -196,8 +194,7 @@ function CheckOut() {
             readOnly
           />
           <button
-            className="btn border fw-bolder"
-            style={{ width: "14%" }}
+            className="btn border fw-bolder Checkout-userchange-btn"
             id="mobilebtn"
             onClick={(e) => userInfoChangeHandler(e)}
           >
@@ -205,7 +202,7 @@ function CheckOut() {
           </button>
         </div>
         <div className="d-flex w-100 justify-content-between m-2">
-          <label className="form-label w-25">Location</label>
+          <label className="form-label Checkout-userchange-lable">Location</label>
           <input
             type="text"
             className="form-control w-50"
@@ -213,8 +210,7 @@ function CheckOut() {
             readOnly
           />
           <button
-            className="btn border fw-bolder"
-            style={{ width: "14%" }}
+            className="btn border fw-bolder Checkout-userchange-btn"
             onClick={(e) => userInfoChangeHandler(e)}
           >
             Change
@@ -222,13 +218,14 @@ function CheckOut() {
         </div>
       </div>
       <center className="w-100 bg-dark" style={{ height: "1px" }}></center>
-      <div className="w-100 m-4 p-1 d-flex">
-        <div className="w-75 d-flex align-items-center">
+
+
+      <div className="d-flex Checkout-offer-cont">
+        <div className="d-flex align-items-center Checkout-offer-box">
           <h5 className="m-0">OFFERS:</h5>
           <select
             id="offer"
-            className="h-100 mx-3"
-            style={{ width: "40%" }}
+            className="h-100 Checkout-offer-select"
             value={offer}
             onChange={handleOfferChange}
           >
@@ -253,10 +250,10 @@ function CheckOut() {
               {Object.keys(billItems).map((key) => {
                 return (
                   <div key={key} className="w-100 d-flex ">
-                    <h5 className="w-50" style={{}}>
+                    <h5 className="w-50 Checkout-bill-key" style={{}}>
                       {key.toUpperCase()} :
                     </h5>
-                    <h5 className="w-50" style={{ textAlign: "end" }}>
+                    <h5 className="w-50 Checkout-bill-key" style={{ textAlign: "end" }}>
                       {key === "discount" ? "-" : "+"}
                       {key === "discount" || key === "tax"
                         ? (billItems.price * billItems[key]) / 100
@@ -273,7 +270,7 @@ function CheckOut() {
             style={{ height: "1px", width: "90%" }}
           ></center>
           <div className="w-100 d-flex p-4">
-            <h5 className="fw-bolder w-50" style={{ fontSize: "1.5rem" }}>
+            <h5 className="fw-bolder w-50 Checkout-totalprice" style={{ fontSize: "1.5rem" }}>
               Total Price :
             </h5>
             <h5 className="w-50" style={{ textAlign: "end" }}>
@@ -283,8 +280,7 @@ function CheckOut() {
         </div>
       </div>
       <div
-        className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0"
-        style={{ position: "sticky", bottom: "0px", height: "4rem" }}
+        className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0 Checkout-pay"
       >
         <button
           className="border bg-primary h-100 text-white"

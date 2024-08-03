@@ -42,9 +42,10 @@ router.post('/updateUser',jwtmiddleware,async(req,res)=>{
     const payload = req.body.payload
     console.log(payload)
     const user = await mongoose.connection.collection('users').findOneAndUpdate({_id:userId}, {$set:payload},{
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     })
+    console.log('updated data',user)
     res.status(200).json(user)
   } catch (error) {
     console.log(error)
@@ -175,9 +176,9 @@ router.post(
       console.log(errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
       const data = req.body;
+      console.log(data)
       // password hashing
       const SALT = await bcrypt.genSalt(10);
       const hashedpassword = await bcrypt.hash(data.password, SALT);

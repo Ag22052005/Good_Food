@@ -28,12 +28,11 @@ function CardList() {
   return (
     <>
     <div>
-    <div className="container" style={{ minWidth: "100vw" }}>
-      <div id="carouselExampleFade " className="carousel slide carousel-fade">
-        <div className="carousel-inner">
+    <div className="container Carousel" style={{ minWidth: "100vw" }}>
+      <div id="carouselExampleFade" style={{height:'100%'}} className="carousel slide carousel-fade">
+        <div className="carousel-inner h-100">
           <div
-            className="carousel-item active"
-            style={{ height: "22rem", width: "100%" }}
+            className="carousel-item active Carousel-item h-100"
           >
             <img
               src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -44,7 +43,6 @@ function CardList() {
           </div>
           <div
             className="carousel-item"
-            style={{ height: "22rem", width: "100%" }}
           >
             <img
               src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg"
@@ -55,7 +53,6 @@ function CardList() {
           </div>
           <div
             className="carousel-item"
-            style={{ height: "22rem", width: "100%" }}
           >
             <img
               src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600"
