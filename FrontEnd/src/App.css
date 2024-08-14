@@ -211,6 +211,11 @@ body::-webkit-scrollbar {
   .Transaction-price h3{
     font-size: 1.1rem !important;
   }
+
+
+  .loginToast{
+    width: 40%;
+  }
   
 }
 

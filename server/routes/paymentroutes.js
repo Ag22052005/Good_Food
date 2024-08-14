@@ -38,6 +38,8 @@ router.post("/order", (req, res) => {
 });
 
 router.post("/verify", async (req, res) => {
+  console.log("Entered for verify")
+
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
   const uid = req.body.userId;
@@ -68,14 +70,14 @@ router.post("/verify", async (req, res) => {
       const transactionDetails = req.body;
       const userId = new ObjectId(transactionDetails.userId);
       const myTransaction = await Transaction.findOne({ userId });
-      // console.log(myTransaction)
+      console.log(myTransaction)
       myTransaction.transactionList.push({
         price: transactionDetails.price,
         itemsName: transactionDetails.itemsName,
         paymentDetails
       });
       const response = await myTransaction.save();
-      // console.log("res: ",response)
+      console.log("res: ",response)
 
       res.status(200).json({ msg: "Order Placed" });
 
@@ -86,10 +88,11 @@ router.post("/verify", async (req, res) => {
         console.log("Finally After 1 min");
         // console.log(newR)
       }, 60000);
-
+      console.log("Removing the cart element")
       const mycart = await Cart.findOne({ userId });
       mycart.items = [];
       const cartres = await mycart.save();
+      console.log("cart item removed")
       return;
     }
     return res.status(504).json({e:'not verified'})

@@ -87,7 +87,7 @@ function Login() {
 
   return (
     <div className="container mt-5 border border-secondary p-5 rounded sbox">
-      <ToastContainer/>
+      <ToastContainer className='loginToast'/>
       <div className="shead">Login</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">

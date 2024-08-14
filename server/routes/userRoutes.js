@@ -4,7 +4,7 @@ const User = require("./../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, Error } = require("mongoose");
 const Cart = require("../models/cart");
 const Transaction = require("../models/Transaction");
 const { ObjectId } = mongoose.Types;
@@ -165,18 +165,21 @@ router.post(
   [
     body("name", "Name must be of 3 to 40 character").isLength({ min: 3 }),
     body("email", "Invalid Email").isEmail(),
-    body("password", "Password must be of 3 to 10 character").isLength({
-      min: 3,
+    body("password", "Password atleast contains 8 characters").isLength({
+      min: 8,
     }),
   ],
 
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.log(errors.array());
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors.array());
+        res.status(504).json({status:"err",errors:errors.array()})
+        // console.log("hiiiiiiiiiiiiiiiiiiiiiii")
+        return;
+      }
+      // console.log("hiiiiiiiiiiiiiiiiiiiiiii")
       const data = req.body;
       console.log(data)
       // password hashing
@@ -193,33 +196,46 @@ router.post(
       const myOrders = new Transaction({userId:user.id,transactionList:[]})
       const orederResponse = await myOrders.save()
       console.log('My orders in created')
-      res.status(200).json(response);
-    } catch (error) {
-      console.log(error);
-      res.status(504).json({ error: "Internal error" });
+      res.status(200).json({status:"success",response});
+    } catch (e) {
+      console.log(e)
+      if(e.errorResponse && e.errorResponse.code === 11000){
+        res.status(504).json({status:"user exists", error:e});
+      }else{
+        res.status(500).json({status:"internal error", error:e});
+      }
     }
   }
 );
 
 
-
-
 router.post("/login", async (req, res) => {
-  const user = req.body;
-  const isUser = await User.findOne({ email: user.email });
-  if (!isUser) {
-    return res.status(404).json({ error: "User Not Found" });
+  try {
+    const user = req.body;
+    const isUser = await User.findOne({ email: user.email });
+    if (!isUser) {
+      throw new Error("User Not Found")
+    }
+    const cmpPassword = await bcrypt.compare(user.password, isUser.password);
+    if (!cmpPassword) {
+      throw new Error("Password is Incorrect" );
+    }
+    const payload = {
+      userId: isUser.id,
+    };
+    const authToken = jwt.sign(payload, process.env.JWT_KEY);
+  
+    res.status(200).json({ user: isUser, authToken: authToken });
+    
+  } catch (error) {
+    if(error.message === "User Not Found")
+      res.status(404).json({errmsg:error.message})
+    else if(error.message === "Password is Incorrect")
+      res.status(401).json({errmsg:error.message})
+    else{
+      res.status(500).json({errmsg:error.message})
+    }
   }
-  const cmpPassword = bcrypt.compare(user.password, isUser.password);
-  if (!cmpPassword) {
-    return res.status(500).json({ error: "Password is Incorrect" });
-  }
-  const payload = {
-    userId: isUser.id,
-  };
-  const authToken = jwt.sign(payload, process.env.JWT_KEY);
-
-  res.status(200).json({ user: isUser, authToken: authToken });
 });
 
 
