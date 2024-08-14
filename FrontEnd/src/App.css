@@ -286,3 +286,12 @@ body::-webkit-scrollbar {
   padding: 0px;
   border-radius: 50%;
 }
+
+
+#emailcheck , #passcheck{
+  display: none;
+}
+
+.errmsg{
+  display: none;
+}
