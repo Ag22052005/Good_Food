@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./assets/screens/Home.jsx";

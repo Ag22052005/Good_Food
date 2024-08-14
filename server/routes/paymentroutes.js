@@ -91,7 +91,7 @@ router.post("/verify", async (req, res) => {
       console.log("Removing the cart element")
       const mycart = await Cart.findOne({ userId });
       mycart.items = [];
-      const cartres = await mycart.save();
+      const cartres = await mycart.save(s);
       console.log("cart item removed")
       return;
     }

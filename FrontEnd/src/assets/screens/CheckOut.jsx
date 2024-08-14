@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserInfo } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CheckOut() {
   const token = localStorage.getItem("authToken");
   const navigate = useNavigate();
@@ -72,6 +73,36 @@ function CheckOut() {
       document.getElementById("mobile").value = user.mobile;
     }
   };
+  const demohandlepayment = async () => {
+    const itemsName = cartItems.map((item) => {
+      return item.name;
+    });
+    console.log("i am here");
+    axios
+      .post(
+        `${import.meta.env.VITE_HOST_URL}/payment`,
+        {
+          itemsName,
+          price: totalPrice,
+        },
+        {
+          headers: {
+            authorization: `bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        toast.success("Payment successful", {
+          position: "top-center",
+          autoClose: 1000,
+        });
+        setTimeout(() => {
+          navigate("/transaction");
+        }, 1500);
+      })
+      .catch((error) => toast.error(error));
+  };
+
   const handlePayment = async () => {
     try {
       const response = await axios.post(
@@ -172,6 +203,7 @@ function CheckOut() {
 
   return (
     <div className="container border Checkout-userchange-cont">
+      <ToastContainer />
       <div className="Checkout-userchange-box">
         <div className="d-flex w-100 justify-content-between m-2">
           <label className="form-label Checkout-userchange-lable">Name </label>
@@ -184,7 +216,10 @@ function CheckOut() {
           </button>
         </div>
         <div className=" d-flex w-100 justify-content-between m-2">
-          <label htmlFor="exampleInputPassword1" className="form-label Checkout-userchange-lable ">
+          <label
+            htmlFor="exampleInputPassword1"
+            className="form-label Checkout-userchange-lable "
+          >
             Mobile
           </label>
           <input
@@ -202,7 +237,9 @@ function CheckOut() {
           </button>
         </div>
         <div className="d-flex w-100 justify-content-between m-2">
-          <label className="form-label Checkout-userchange-lable">Location</label>
+          <label className="form-label Checkout-userchange-lable">
+            Location
+          </label>
           <input
             type="text"
             className="form-control w-50"
@@ -218,7 +255,6 @@ function CheckOut() {
         </div>
       </div>
       <center className="w-100 bg-dark" style={{ height: "1px" }}></center>
-
 
       <div className="d-flex Checkout-offer-cont">
         <div className="d-flex align-items-center Checkout-offer-box">
@@ -253,7 +289,10 @@ function CheckOut() {
                     <h5 className="w-50 Checkout-bill-key" style={{}}>
                       {key.toUpperCase()} :
                     </h5>
-                    <h5 className="w-50 Checkout-bill-key" style={{ textAlign: "end" }}>
+                    <h5
+                      className="w-50 Checkout-bill-key"
+                      style={{ textAlign: "end" }}
+                    >
                       {key === "discount" ? "-" : "+"}
                       {key === "discount" || key === "tax"
                         ? (billItems.price * billItems[key]) / 100
@@ -270,7 +309,10 @@ function CheckOut() {
             style={{ height: "1px", width: "90%" }}
           ></center>
           <div className="w-100 d-flex p-4">
-            <h5 className="fw-bolder w-50 Checkout-totalprice" style={{ fontSize: "1.5rem" }}>
+            <h5
+              className="fw-bolder w-50 Checkout-totalprice"
+              style={{ fontSize: "1.5rem" }}
+            >
               Total Price :
             </h5>
             <h5 className="w-50" style={{ textAlign: "end" }}>
@@ -279,13 +321,11 @@ function CheckOut() {
           </div>
         </div>
       </div>
-      <div
-        className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0 Checkout-pay"
-      >
+      <div className="container border w-100 d-flex align-items-center bg-white flex-row-reverse p-0 Checkout-pay">
         <button
           className="border bg-primary h-100 text-white"
           style={{ float: "right" }}
-          onClick={handlePayment}
+          onClick={demohandlepayment}
         >
           Proceed To Pay {">"}
         </button>

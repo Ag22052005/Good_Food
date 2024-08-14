@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 function Card({ food }) {
   const [qty, setQty] = useState(1);
@@ -29,6 +30,10 @@ function Card({ food }) {
       )
       .then((res) => {
         console.log(res.data.items);
+        toast.success("Item is Added!", {
+          position: "top-center",
+          autoClose:500
+        });
         setQty(1);
         setSize(Object.keys(food.options[0])[0]);
         console.log(res);
@@ -44,6 +49,8 @@ function Card({ food }) {
   }, [qty, size]);
 
   return (
+    <>
+     <ToastContainer/>
     <div className="Card-box">
       <div
         className="card m-2 Card"
@@ -119,6 +126,7 @@ function Card({ food }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
