@@ -92,7 +92,7 @@ router.post('/payment',jwtmiddleware,async (req,res)=>{
       const newR = await response.save()
       console.log("Finally After 10sec")
       // console.log(newR)
-    },60000)
+    },10000)
     const mycart = await Cart.findOne({userId})
     mycart.items=[]
     const cartres = await mycart.save();

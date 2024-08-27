@@ -66,15 +66,17 @@ body::-webkit-scrollbar {
 /* HOME_CARD */
 
 .Card-box{
-  max-height: 30rem;
+  max-height: 25rem;
   margin-left:0.5rem;
 }
 .Card{
   width: 17rem;
   max-width: 20rem;
-  max-height:28rem;
+  max-height:22rem;
 }
-
+.cardImage{
+  height: 40%;
+}
 .place-order-btn{
   width: 50%;
   position: sticky;
@@ -85,9 +87,17 @@ body::-webkit-scrollbar {
   width: 25%;
 }
 
+
 .Carousel{
   height: 20rem;
 }
+
+.ImageSlider-control:hover{
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+
 /* .Carousel-item{
   height: 20rem;
 } */
