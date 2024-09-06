@@ -15,7 +15,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-success">
         <div className="container-fluid">
           <Link className="navbar-brand fs-1 fst-italic" to="/">
-            GoFood
+            EatSure
           </Link>
           <button
             className="navbar-toggler"

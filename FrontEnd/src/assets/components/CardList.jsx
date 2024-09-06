@@ -32,13 +32,7 @@ function CardList() {
         setFoodCategory(res.data.foodCategory);
       })
       .catch((err) => console.log(err));
-
-    }, []);
-
-    // setInterval(() => {
-    //   setPositionIndex((prev) => prev.map((value) => (value + 1) % 5));
-    // }, 5000);
-
+  }, []);
 
   const positions = ["left", "left1", "center", "right1", "right"];
 
@@ -171,7 +165,6 @@ function CardList() {
                 transition={{ duration: 0.5 }}
                 style={{
                   width: "30%",
-                  height:'38%',
                   position: "absolute",
                   borderRadius: "6%",
                 }}
