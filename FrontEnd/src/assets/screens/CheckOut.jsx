@@ -77,7 +77,7 @@ function CheckOut() {
     const itemsName = cartItems.map((item) => {
       return item.name;
     });
-    console.log("i am here");
+    // console.log("i am here");
     axios
       .post(
         `${import.meta.env.VITE_HOST_URL}/payment`,

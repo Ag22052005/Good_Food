@@ -14,11 +14,17 @@ import Header from "./assets/components/Header.jsx";
 import TransactionList from "./assets/components/TransactionList.jsx";
 import CheckOut from "./assets/screens/CheckOut.jsx";
 import ChatBotScreen from "./assets/screens/ChatBotScreen.jsx";
+import { FoodCategoryProvider, FoodContextProvider } from "./Context/FoodContextProvider.jsx";
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: 
+    <FoodCategoryProvider>
+      <Home />
+    </FoodCategoryProvider>,
   },
   {
     path: "/login",
@@ -62,13 +68,14 @@ const router = createBrowserRouter([
       </>
     ),
   },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <UserInfoProvider>
-      <RouterProvider router={router} />
-    </UserInfoProvider>
+    <FoodContextProvider>
+      <UserInfoProvider>
+        <RouterProvider router={router} />
+      </UserInfoProvider>
+    </FoodContextProvider>
   </React.StrictMode>
 );

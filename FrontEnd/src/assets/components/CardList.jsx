@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import Card from "./Card";
 import axios from "axios";
 import {
@@ -8,9 +8,11 @@ import {
   easeInOut,
   addScaleCorrector,
 } from "framer-motion";
+import { FoodCategoryContext, FoodContext } from "../../Context/foodContext";
+
 function CardList() {
-  const [foodItems, setFoodItems] = useState([]);
-  const [foodCategory, setFoodCategory] = useState([]);
+  const { foodItems } = useContext(FoodContext);
+  const { foodCategory } = useContext(FoodCategoryContext);
   const [serach, setSearch] = useState("");
   const [postionIndex, setPositionIndex] = useState([0, 1, 2, 3, 4]);
   const popular = foodItems.filter(
@@ -18,21 +20,7 @@ function CardList() {
       food.CategoryName == "Pizza" ||
       (food.CategoryName == "Starter" && index < 10)
   );
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_HOST_URL}/foodDisplay`)
-      .then((res) => {
-        setFoodItems(res.data.foodItems);
-      })
-      .catch((err) => console.log(err));
-
-    axios
-      .get(`${import.meta.env.VITE_HOST_URL}/foodDisplay/category`)
-      .then((res) => {
-        setFoodCategory(res.data.foodCategory);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(() => {}, []);
 
   const positions = ["left", "left1", "center", "right1", "right"];
 
@@ -143,7 +131,7 @@ function CardList() {
           </div>
         </div>
       </div>} */}
-      
+
       <div
         className="border mx-auto overflow-hidden"
         style={{ backgroundColor: "#e6e3e3", width: "98%", height: "25rem" }}
@@ -154,21 +142,22 @@ function CardList() {
         >
           {popular.map((food, index) => {
             return (
-              index < 5 &&
-              <motion.img
-                src={food.img}
-                key={index}
-                variants={ImageVarients}
-                initial={positions[postionIndex[index]]}
-                animate={positions[postionIndex[index]]}
-                className=""
-                transition={{ duration: 0.5 }}
-                style={{
-                  width: "30%",
-                  position: "absolute",
-                  borderRadius: "6%",
-                }}
-              ></motion.img>
+              index < 5 && (
+                <motion.img
+                  src={food.img}
+                  key={index}
+                  variants={ImageVarients}
+                  initial={positions[postionIndex[index]]}
+                  animate={positions[postionIndex[index]]}
+                  className=""
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    width: "30%",
+                    position: "absolute",
+                    borderRadius: "6%",
+                  }}
+                ></motion.img>
+              )
             );
           })}
         </div>
@@ -196,6 +185,16 @@ function CardList() {
             {">"}
           </span>
         </div>
+      </div>
+      <div className="searchItem container mt-4">
+        <input
+          className="form-control mr-sm-2"
+          type="search"
+          value={serach}
+          placeholder="Search Here"
+          onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search"
+        />
       </div>
       <motion.div
         className="container d-flex justify-content-center flex-column"

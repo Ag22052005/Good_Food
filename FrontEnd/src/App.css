@@ -25,9 +25,9 @@ body::-webkit-scrollbar {
 }
 
 .searchItem{
-  position: absolute;
-  top: 80%;
-  left: 28%;
+  /* position: absolute; */
+  /* top: 80%;
+  left: 28%; */
   z-index: 1;
   width: 40%;
 }
