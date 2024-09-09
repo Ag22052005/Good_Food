@@ -1,45 +1,40 @@
 body::-webkit-scrollbar {
   display: none;
 }
-.sbox{
+.sbox {
   position: relative;
   max-width: 400px;
   margin: auto;
   padding: 1rem;
 }
-.shead{
+.shead {
   position: absolute;
   top: -4%;
-  left:28%;
+  left: 28%;
   border: 2px solid black;
   width: 40%;
-  text-align:center;
+  text-align: center;
   background-color: white;
   border-radius: 1rem;
   padding: 0.3rem;
   font-size: larger;
   font-weight: bold;
 }
-.lbtn,.sbtn{
+.lbtn,
+.sbtn {
   cursor: pointer;
 }
 
-.searchItem{
+.searchItem {
   /* position: absolute; */
   /* top: 80%;
   left: 28%; */
   z-index: 1;
   width: 40%;
 }
-.cardImage{
+.cardImage {
   height: 12rem;
 }
-
-
-
-
-
-
 
 @media (max-width: 576px) {
   .sbox {
@@ -59,230 +54,279 @@ body::-webkit-scrollbar {
   .btn {
     font-size: 0.875rem;
   }
-
 }
-
 
 /* HOME_CARD */
 
-.Card-box{
+.Card-box {
   max-height: 25rem;
-  margin-left:0.5rem;
+  margin-left: 0.5rem;
 }
-.Card{
+.Card {
   width: 17rem;
   max-width: 20rem;
-  max-height:22rem;
+  max-height: 22rem;
 }
-.cardImage{
+.cardImage {
+  width: 100%;
   height: 40%;
+  object-fit: cover;
 }
-.place-order-btn{
+.place-order-btn {
   width: 50%;
   position: sticky;
   bottom: 0px;
-  height: 4rem; 
+  height: 4rem;
 }
-.Cart-item-qty-box{
+.Cart-item-qty-box {
   width: 25%;
 }
 
-
-.Carousel{
+.Carousel {
   height: 20rem;
 }
 
-.ImageSlider-control:hover{
+.ImageSlider-control:hover {
   cursor: pointer;
   color: whitesmoke;
 }
 
-
-/* .Carousel-item{
-  height: 20rem;
-} */
-@media (max-width:630px) {
-  .Carousel{
-    height: 10rem;
-  }
-  .searchItem{
+.Carouse-container {
+  background-color: #e6e3e3;
+  width: 98%;
+  height: 25rem;
+}
+.arrow-box {
+  position: absolute;
+  top: 33%;
+  z-index: 12;
+  left: 35%;
+  width: 30%;
+}
+.Carousel-img {
+  width: 30%;
+  position: absolute;
+  border-radius: 6%;
+}
+.arrow{
+  font-size: 2rem;
+   color: #0f0f0f;
+}
+@media (max-width: 630px) {
+  .searchItem {
     top: 60%;
     left: 20%;
     z-index: 1;
     width: 60%;
   }
-  .Card{
-    width:100%;
+  .Carousel {
+    width: 100%;
+    height: 8rem;
+    overflow: hidden;
   }
-  .Card-box{
+  .Carouse-container {
+    background-color: #e6e3e3;
+    width: 98vw;
+    height: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .Carousel-img {
+    width: 40%;
+    position: absolute;
+    border-radius: 6%;
+    overflow: hidden;
+    height: 7rem;
+  }
+  .center{
+    width: 70%;
+  }
+  .left , .right{
+    display: none;
+  }
+  /* .left1 , .right1{
+    display: ;
+  } */
+
+  .arrow-box {
+    position: absolute;
+    top: 21%;
+    z-index: 12;
+    left: 15%;
+    width: 70%;
+  }
+  .arrow{
+    font-size: 1rem;
+     color: #0f0f0f;
+  }
+
+  .Card {
+    width: 100%;
+    margin: 0px !important;
+  }
+  .Card-box {
     margin: 0px;
   }
-  .CardList-cardsContainer{
+  .CardList-cardsContainer {
     display: flex;
     justify-content: center;
   }
   /* .Card-option-qty{
     width: 1.5rem;
   }   */
-  .Cart-item-container{
+  .Cart-item-container {
     min-width: 100%;
   }
-  .cart-item-heading{
+  .cart-item-heading {
     font-size: 1.2rem;
   }
-  .cart-item-description{
+  .cart-item-description {
     font-size: 1rem;
-    max-height :3rem ;
+    max-height: 3rem;
   }
   .Cart-item-img {
     width: 80%;
     margin: 3px;
   }
-  .Cart-item-price-box{
+  .Cart-item-price-box {
     width: 140%;
     height: 50px;
   }
-  .place-order-btn{
+  .place-order-btn {
     width: 100%;
     height: 2.5rem;
   }
-  .Cart-qty-btn{
+  .Cart-qty-btn {
     padding: 0px 6px;
     width: 33%;
   }
-  .Cart-item-qty-box{
+  .Cart-item-qty-box {
     height: 2.5rem;
   }
   /* .Checkout-userchange-btn{
 
   } */
 
-
-  .Checkout-userchange-cont{
+  .Checkout-userchange-cont {
     min-width: 100%;
-    padding:0px 4px;
+    padding: 0px 4px;
   }
-  .Checkout-userchange-box{
+  .Checkout-userchange-box {
     min-width: 99%;
   }
-  .Checkout-userchange-lable{
+  .Checkout-userchange-lable {
     width: 16%;
   }
-  .Checkout-userchange-btn{
+  .Checkout-userchange-btn {
     min-width: 20%;
     padding: 0px;
     margin-right: 1rem;
   }
-  .Checkout-offer-cont{
+  .Checkout-offer-cont {
     max-width: 92%;
     height: 2rem;
     margin: 2px;
   }
-  .Checkout-offer-box{
+  .Checkout-offer-box {
     max-width: 55%;
   }
-  .Checkout-offer-select{
+  .Checkout-offer-select {
     min-width: 70%;
     margin-left: 6px !important;
   }
-  .Checkout-bill-key{
+  .Checkout-bill-key {
     font-size: 1rem;
   }
-  .Checkout-totalprice{
+  .Checkout-totalprice {
     font-size: 1.2rem !important;
   }
-  .Checkout-pay{
+  .Checkout-pay {
     height: 3rem !important;
   }
   /* Trasaction page */
 
-  .TransactionList-cont{
+  .TransactionList-cont {
     width: 98% !important;
     padding: 0px;
   }
-  .TransactionList-cont div h4{
+  .TransactionList-cont div h4 {
     font-size: 1rem !important;
   }
-  .Transaction-ItemName{
+  .Transaction-ItemName {
     max-height: 16px;
   }
-  .Transaction-li{
+  .Transaction-li {
     margin: 4px 0px !important;
   }
-  .Transaction-li div h5{
+  .Transaction-li div h5 {
     font-size: 1rem;
   }
-  .Transaction-li div p{
+  .Transaction-li div p {
     font-size: 0.8rem;
   }
-  .Transaction-price{
+  .Transaction-price {
     width: 25% !important;
   }
-  .Transaction-price h3{
+  .Transaction-price h3 {
     font-size: 1.1rem !important;
   }
-
-
-  .loginToast{
-    width: 40%;
-  }
-  
 }
 
-.TransactionList-cont div h4{
+.TransactionList-cont div h4 {
   width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.TransactionList-cont div h4:hover{
+.TransactionList-cont div h4:hover {
   background-color: rgb(223, 223, 223);
 }
 
 /* checkout */
 
-.Checkout-userchange-btn{
+.Checkout-userchange-btn {
   width: 15%;
 }
-.Checkout-userchange-cont{
+.Checkout-userchange-cont {
   width: 50%;
 }
-.Checkout-userchange-box{
+.Checkout-userchange-box {
   width: 95%;
 }
 
-.Checkout-offer-cont{
+.Checkout-offer-cont {
   justify-content: space-between;
   width: 90%;
   margin: 1rem;
 }
-.Checkout-offer-box{
+.Checkout-offer-box {
   width: 75%;
   height: 2rem;
 }
-.Checkout-pay{
+.Checkout-pay {
   width: 50%;
   position: sticky;
   bottom: 0px;
-  height: 4rem; 
+  height: 4rem;
 }
-.Checkout-offer-select{
+.Checkout-offer-select {
   margin: 1.2rem;
 }
-.Checkout-userchange-lable{
+.Checkout-userchange-lable {
   width: 16%;
 }
 
-
-.ChatBot-Screen{
+.ChatBot-Screen {
   width: 100vw;
 
   display: flex;
   justify-content: center;
 }
 
-.chatBot-btn{
+.chatBot-btn {
   position: fixed;
   right: 35px;
   z-index: 1;
@@ -294,7 +338,7 @@ body::-webkit-scrollbar {
   border-radius: 50%;
 }
 
-.chatBot-img{
+.chatBot-img {
   height: 60px;
   width: 60px;
   margin: 0px;
@@ -302,11 +346,11 @@ body::-webkit-scrollbar {
   border-radius: 50%;
 }
 
-
-#emailcheck , #passcheck{
+#emailcheck,
+#passcheck {
   display: none;
 }
 
-.errmsg{
+.errmsg {
   display: none;
 }

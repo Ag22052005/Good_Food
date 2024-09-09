@@ -27,7 +27,6 @@ router.get('/foodDisplay/category', async (req,res)=>{
   }
 })
 
-
 router.get('/getId',async (req,res)=>{
   try{
     const token = req.headers.authorization.split(' ')[1]

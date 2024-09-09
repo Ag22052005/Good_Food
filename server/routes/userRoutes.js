@@ -35,6 +35,8 @@ router.get('/getUserInfo',jwtmiddleware,async (req,res)=>{
     res.status(504).json(error)
   }
 })
+
+
 router.post('/updateUser',jwtmiddleware,async(req,res)=>{
   try {
     const uid = req.user.userId;

@@ -3,8 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 function Header() {
 
   const logoutHandler = ()=>{
-    localStorage.clear();
-    // localStorage.removeItem('authToken')
+    // localStorage.clear();
+    localStorage.removeItem('authToken')
   }
 
   const [active,setActive] = useState('home')
@@ -31,14 +31,14 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
               <li className="nav-item" >
-                <Link className= {`nav-link  ${active ==='home' ? 'fw-bold':''}`} aria-current="page" to="/"  onClick={()=>setActive('home')}>
+                <Link className= {`nav-link  ${active === 'home' ? `fw-bolder`:''}`} aria-current="page" to="/"  onClick={()=>setActive('home')}>
                   Home
                 </Link>
               </li>
               <li className="nav-item">
               {
                   localStorage.getItem('authToken')?(
-                  <Link className={`nav-link ${active ==='myOrders' ? 'fw-bold':''}`} aria-current="page" to="/transaction" onClick={()=>setActive('myOrders')}>
+                  <Link className={`nav-link ${active ==='myOrders' ? 'fw-bolder':''}`} aria-current="page" to="/transaction" onClick={()=>setActive('myOrders')}>
                     My Orders
                   </Link>
                   ):""
