@@ -167,7 +167,9 @@ function CheckOut() {
         },
       })
       .then((res) => {
+        // console.log("res.data in getUserInfo",res.data)
         userInfoHandler(res.data);
+        
       })
       .catch((err) => {
         console.log(err);

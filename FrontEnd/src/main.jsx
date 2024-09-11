@@ -15,6 +15,7 @@ import TransactionList from "./assets/components/TransactionList.jsx";
 import CheckOut from "./assets/screens/CheckOut.jsx";
 import ChatBotScreen from "./assets/screens/ChatBotScreen.jsx";
 import { FoodCategoryProvider, FoodContextProvider } from "./Context/FoodContextProvider.jsx";
+import ProfilePage from "./assets/screens/ProfilePage.jsx";
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path:'/profile',
+    element:<ProfilePage/>
   },
   {
     path: "/mycart",

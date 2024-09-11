@@ -1,6 +1,9 @@
 body::-webkit-scrollbar {
   display: none;
 }
+body{
+  overflow: auto;
+}
 .sbox {
   position: relative;
   max-width: 400px;
@@ -151,7 +154,7 @@ body::-webkit-scrollbar {
   } */
 
   .arrow-box {
-    position: absolute;
+    position:absolute;
     top: 21%;
     z-index: 12;
     left: 15%;

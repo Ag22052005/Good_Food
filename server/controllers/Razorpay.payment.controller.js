@@ -1,18 +1,16 @@
 const express = require("express");
 const Razorpay = require("razorpay");
-const router = express.Router();
 const crypto = require("crypto");
 const { default: mongoose } = require("mongoose");
 const { ObjectId } = mongoose.Types;
 require("dotenv").config();
-const Transaction = require('./../models/Transaction')
-const Cart = require('./../models/cart');
-const { jwtmiddleware } = require("../jwt");
+const Transaction = require('../models/Transaction')
+const Cart = require('../models/cart');
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_SECRET,
 });
-router.post("/order", (req, res) => {
+const order = (req, res) => {
   const { amount } = req.body;
   console.log(amount);
 
@@ -35,9 +33,9 @@ router.post("/order", (req, res) => {
     res.status(500).json({ message: "Internal Server Error!" });
     console.log(error);
   }
-});
+}
 
-router.post("/verify", async (req, res) => {
+const verify = async (req, res) => {
   console.log("Entered for verify")
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
@@ -102,6 +100,6 @@ router.post("/verify", async (req, res) => {
     // res.status(504).json({ message: "Internal Server Error!" });
     console.log(error);
   }
-});
+}
 
-module.exports = router;
+module.exports = {order,verify};
