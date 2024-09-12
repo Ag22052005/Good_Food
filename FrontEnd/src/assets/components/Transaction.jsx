@@ -33,7 +33,7 @@ function Transaction({transaction}) {
     </div>
     </div>
     <div className="d-flex justify-content-center h-100 align-items-center Transaction-price" style={{'width':'20%'}}>
-      <h3>₹ {transaction.price}/- </h3>
+      <h3>₹ {transaction.price.toFixed(2)}/- </h3>
     </div>
   </li>
   )

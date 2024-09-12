@@ -67,7 +67,8 @@ const mycart =  async (req, res) => {
 const updatemycart = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { action, foodId, qty } = req.body;
+    // console.log("update my cart req.body",req.body);
+    const { action, foodId, qty,size} = req.body;
     let MYCART = await Cart.findOne({ userId });
     if (action === "remove") {
       MYCART.items = MYCART.items.filter((x) => {
@@ -75,12 +76,13 @@ const updatemycart = async (req, res) => {
       });
     } else {
       MYCART.items.forEach((element) => {
-        if (element.foodId == foodId) {
+        // console.log(element)
+        if (element.foodId == foodId && element.option.size== size) {
           element.option.qty = qty;
         }
       });
     }
-    console.log(MYCART);
+    // console.log(MYCART);
     const response = await MYCART.save();
     res.status(200).json({ response });
   } catch (error) {

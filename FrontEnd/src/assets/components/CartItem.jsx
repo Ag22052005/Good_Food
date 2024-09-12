@@ -31,6 +31,7 @@ function CartItem({ cartItem }) {
             action,
             foodId: cartItem.foodId,
             qty: cartItem.option.qty,
+            size:cartItem.option.size,
           },
           {
             headers: {
