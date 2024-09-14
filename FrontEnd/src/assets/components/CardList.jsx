@@ -80,9 +80,8 @@ function CardList() {
               )
             );
           })}
-        </div>
-        <div
-          className="m-auto d-flex justify-content-between align-items-center arrow-box"
+          <div
+          className="d-flex justify-content-between align-items-center arrow-box"
         >
           <span
             onClick={LeftClick}
@@ -96,6 +95,7 @@ function CardList() {
           >
             {">"}
           </span>
+        </div>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 body::-webkit-scrollbar {
   display: none;
 }
-body{
+body {
   overflow: auto;
 }
 .sbox {
@@ -100,10 +100,7 @@ body{
   height: 25rem;
 }
 .arrow-box {
-  position: absolute;
-  top: 33%;
   z-index: 12;
-  left: 35%;
   width: 30%;
 }
 .Carousel-img {
@@ -111,9 +108,9 @@ body{
   position: absolute;
   border-radius: 6%;
 }
-.arrow{
+.arrow {
   font-size: 2rem;
-   color: #0f0f0f;
+  color: #0f0f0f;
 }
 @media (max-width: 630px) {
   .searchItem {
@@ -143,10 +140,11 @@ body{
     overflow: hidden;
     height: 7rem;
   }
-  .center{
+  .center {
     width: 70%;
   }
-  .left , .right{
+  .left,
+  .right {
     display: none;
   }
   /* .left1 , .right1{
@@ -154,15 +152,13 @@ body{
   } */
 
   .arrow-box {
-    position:absolute;
-    top: 21%;
     z-index: 12;
-    left: 15%;
+    font-size: 1rem;
     width: 70%;
   }
-  .arrow{
+  .arrow {
     font-size: 1rem;
-     color: #0f0f0f;
+    color: #0f0f0f;
   }
 
   .Card {
