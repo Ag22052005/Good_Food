@@ -3,7 +3,8 @@ const Cart = require("../models/cart");
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const Transaction = require("../models/Transaction");
 
 const getId =  async (req, res) => {
   try {
