@@ -112,6 +112,10 @@ body {
   font-size: 2rem;
   color: #0f0f0f;
 }
+.dropdown-list{
+  top: 130% !important;
+  left: -8rem !important;
+}
 @media (max-width: 630px) {
   .searchItem {
     top: 60%;

@@ -1,6 +1,4 @@
-import React from 'react'
-import { useContext,createContext,useEffect,useState } from 'react'
-import axios from "axios";
+import {createContext} from 'react'
 
 export const FoodContext = createContext({
   foodItems:[],

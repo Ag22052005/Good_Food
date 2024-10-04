@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { UserSideBar } from "../components/UserSideBar";
 
 function ProfilePage() {
   const [profileImg, setProfileImg] = useState("");
@@ -48,6 +49,8 @@ function ProfilePage() {
   };
 
   return (
+    <>
+    <UserSideBar></UserSideBar>
     <div style={{textAlign:'center'}}>
       <label htmlFor="myfile" style={{ cursor: 'pointer',display:'block',margin:'4rem' }}>
         <img src="upload_icon_url" alt="Upload" style={{ width: '50px', height: '50px' }} />
@@ -59,10 +62,11 @@ function ProfilePage() {
         className="myfile"
         style={{ display: 'none' }} 
         onChange={ProfilePageHandler}
-      />
+        />
 
       {profileImg && <img src={profileImg} alt="Profile" style={{width:'150px',height:'150px'}} />}
     </div>
+        </>
   );
 }
 
